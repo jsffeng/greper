@@ -24,13 +24,13 @@ then
 	exit 0
 fi
 
-if [[ ! -s ${GREP} ]]
+if [[ ! -f ${GREP}  ]]
 then
 	echo "${GREP} doesn't exist! Exit!" >&2
 	exit 1
 fi
 
-if [[ ! -s ${PERL} ]]
+if [[ ! -f ${PERL} ]]
 then
 	echo "${PERL} doesn't exist! Exit!" >&2
 	exit 1
