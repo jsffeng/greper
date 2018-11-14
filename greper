@@ -1,0 +1,41 @@
+#!/bin/bash
+#################################################################
+# Description:						 	#
+#								#
+#   	Search all ASCII files for the given search-string,	#
+#   	starting at the current directory, and extending to 	#
+#   	all subdirectories.  Whenever the string is found,	#
+#	the relative pathname and filename are printed.		#
+#								#
+#################################################################
+
+CMD=${0##*/}
+USAGE="Usage: ${CMD} [OPTION] PATTERN
+"
+export PATH=/bin:/usr/bin:$PATH
+
+GREP=/bin/grep
+PERL=/usr/bin/perl
+
+if [[ $# < 1 ]]
+then
+	echo "Note: ${CMD} run ${CMD%er} for all ASCII files in current and sub-directories"
+	echo "${USAGE}"
+	exit 0
+fi
+
+if [[ ! -s ${GREP} ]]
+then
+	echo "${GREP} doesn't exist! Exit!" >&2
+	exit 1
+fi
+
+if [[ ! -s ${PERL} ]]
+then
+	echo "${PERL} doesn't exist! Exit!" >&2
+	exit 1
+fi
+
+# Add qoute for file name in case there are blanks in file name
+find . -type f -print| ${PERL} -ne 'chomp;print "\"$_\"\n" if -T $_' |xargs -l7 ${GREP} "$@"
+
