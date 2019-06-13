@@ -36,6 +36,6 @@ then
 	exit 1
 fi
 
-# Add qoute for file name in case there are blanks in file name
+# Make file name in quotes in case that there are blanks in file name
 find . -type f -print| ${PERL} -ne 'chomp;print "\"$_\"\n" if -T $_' |xargs -l7 ${GREP} "$@"
 
